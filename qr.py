@@ -6,9 +6,9 @@ import cv2, os, sys, base64, re, shutil
 class Answer:
     def __init__(self, s):
         arr = s.split("-")
-        # self.year = arr[0]
-        # self.semester = arr[1]
-        # self.exam = arr[2]
+        self.year = arr[0]
+        self.semester = arr[1]
+        self.exam = arr[2]
         self.sid = arr[3]
         self.question = arr[4]
 
@@ -31,14 +31,7 @@ def decodeQR(path, key):
         answer = None
     return path, answer
 
-def main(argv):
-    if len(argv) != 4:
-        print("Usage: python3 qr.py [in_dir] [out_dir] [secret_file]")
-        return
-
-    in_dir = argv[1]
-    out_dir = argv[2]
-    secret_file = argv[3]
+def processQR(in_dir, out_dir, secret_file):
     f = open(secret_file)
     key = f.readline().strip()
     f.close()
@@ -64,7 +57,7 @@ def main(argv):
         for src, question in answers:
             ext = os.path.splitext(src)[1]
             dst = os.path.join(s_dir, question + ext)
-            shutil.move(src, dst)
+            shutil.copyfile(src, dst)
 
     unknowns = [path for (path, answer) in results if not answer]
     u_dir = os.path.join(out_dir, "unknowns")
@@ -72,9 +65,17 @@ def main(argv):
     for i, src in enumerate(unknowns):
         ext = os.path.splitext(src)[1]
         dst = os.path.join(u_dir, str(i) + ext)
-        shutil.move(src, dst)
+        shutil.copyfile(src, dst)
 
-    os.rmdir(in_dir)
+def main(argv):
+    if len(argv) != 4:
+        print("Usage: python3 qr.py [in_dir] [out_dir] [secret_file]")
+        return
+
+    in_dir = argv[1]
+    out_dir = argv[2]
+    secret_file = argv[3]
+    processQR(in_dir, out_dir, secret_file)
 
 if __name__ == "__main__":
     main(sys.argv)

@@ -1,5 +1,8 @@
 *.sw[op]
 *.zip
 *.pdf
-secret
+*.jpg
+*.png
+*.pyc
 .DS_Store
+secret
