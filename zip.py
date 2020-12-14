@@ -12,7 +12,7 @@ def unzip(path):
     zf.extractall(out_path)
     zf.close()
 
-def processZIP(in_dir, out_dir):
+def process_zip(in_dir, out_dir):
     shutil.rmtree(tmp_dir, ignore_errors=True)
     os.mkdir(tmp_dir)
     files = [ \
@@ -40,7 +40,7 @@ def main(argv):
 
     in_dir = argv[1]
     out_dir = argv[2]
-    processZIP(in_dir, out_dir)
+    process_zip(in_dir, out_dir)
 
 if __name__ == "__main__":
     main(sys.argv)

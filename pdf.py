@@ -18,7 +18,7 @@ def extract(path, out_dir):
             png = pix if pix.n - pix.alpha < 4 else fitz.Pixmap(fitz.csRGB, pix)
             png.writePNG(out_path)
 
-def processPDF(in_dir, out_dir):
+def process_pdf(in_dir, out_dir):
     os.makedirs(out_dir, exist_ok=True)
 
     files = [ \
@@ -37,7 +37,7 @@ def main(argv):
 
     in_dir = argv[1]
     out_dir = argv[2]
-    processPDF(in_dir, out_dir)
+    process_pdf(in_dir, out_dir)
 
 if __name__ == "__main__":
     main(sys.argv)
