@@ -5,8 +5,8 @@ from PIL import Image
 
 def to_jpg(in_file, out_dir):
     name, ext = os.path.splitext(in_file)
+    ext = ext.lower()
     sid = os.path.basename(name).split("-")[1]
-    out_file = os.path.join(out_dir, f"{sid}.jpg")
 
     if ext == ".pdf":
         images = convert_from_path(in_file)
@@ -22,8 +22,10 @@ def to_jpg(in_file, out_dir):
             image.paste(img, (0, offset))
             offset += img.size[1]
         
+        out_file = os.path.join(out_dir, f"{sid}.jpg")
         image.save(out_file, "JPEG")
     else:
+        out_file = os.path.join(out_dir, f"{sid}.{ext}")
         shutil.copyfile(in_file, out_file)
 
 def main(argv):
