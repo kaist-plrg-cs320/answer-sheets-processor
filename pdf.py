@@ -9,9 +9,9 @@ def extract(path, out_dir):
     images = convert_from_path(path)
 
     for i, img in enumerate(images):
-        out = "%s-%s-%s.jpg" % (name, i)
+        out = "%s-%s.jpg" % (name, i)
         out_path = os.path.join(out_dir, out)
-        image.save(out_path, "JPEG")
+        img.save(out_path, "JPEG")
 
 def process_pdf(in_dir, out_dir):
     os.makedirs(out_dir, exist_ok=True)
